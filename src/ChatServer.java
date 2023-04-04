@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class ChatServer {
@@ -22,7 +23,19 @@ public class ChatServer {
      * Method responsible to start the server
      */
     public void start() {
+        this.serverRunning = true;
 
+        while(serverRunning) {
+            Socket clientConnection;
+
+            try {
+                clientConnection = serverSocket.accept();
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+
+            // ClientHandler handler = new ClientHandler(this, );
+        }
     }
 
     /**
