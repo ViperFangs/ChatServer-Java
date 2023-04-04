@@ -44,9 +44,12 @@ public class ChatServer {
                 error.printStackTrace();
             }
 
+            System.out.println("Building Client Thread.");
             ClientHandler handler = new ClientHandler(this, clientReader);
             Thread newClient = new Thread(handler);
             newClient.start();
+
+            System.out.println("Thread started ... Looking for new clients.");
         }
     }
 
