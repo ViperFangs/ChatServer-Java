@@ -26,9 +26,11 @@ public class ChatServer {
      */
     public void start() {
         this.serverRunning = true;
-
+        System.out.println("Starting the Chat Server...");
         while(serverRunning) {
             Socket clientConnection = null;
+
+            System.out.println("Waiting for a Client Connection ...");
 
             try {
                 clientConnection = serverSocket.accept();
