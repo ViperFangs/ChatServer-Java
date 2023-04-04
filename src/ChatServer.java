@@ -36,15 +36,17 @@ public class ChatServer {
                 error.printStackTrace();
             }
 
+            BufferedReader clientReader = null;
+
             try {
-                BufferedReader clientReader = new BufferedReader(
-                        new InputStreamReader(clientConnection.getInputStream())
-                );
+                clientReader = new BufferedReader(new InputStreamReader(clientConnection.getInputStream()));
             } catch (IOException error) {
                 error.printStackTrace();
             }
 
-            // ClientHandler handler = new ClientHandler(this, );
+            ClientHandler handler = new ClientHandler(this, clientReader);
+            Thread newClient = new Thread(handler);
+            newClient.start();
         }
     }
 
