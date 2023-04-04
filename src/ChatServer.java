@@ -1,4 +1,6 @@
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -26,10 +28,18 @@ public class ChatServer {
         this.serverRunning = true;
 
         while(serverRunning) {
-            Socket clientConnection;
+            Socket clientConnection = null;
 
             try {
                 clientConnection = serverSocket.accept();
+            } catch (IOException error) {
+                error.printStackTrace();
+            }
+
+            try {
+                BufferedReader clientReader = new BufferedReader(
+                        new InputStreamReader(clientConnection.getInputStream())
+                );
             } catch (IOException error) {
                 error.printStackTrace();
             }
