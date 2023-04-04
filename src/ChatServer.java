@@ -19,6 +19,8 @@ public class ChatServer {
         catch (IOException error) {
             error.printStackTrace();
         }
+
+        this.sendList = new ArrayList<PrintWriter>();
     }
 
     /**
@@ -46,6 +48,17 @@ public class ChatServer {
                 error.printStackTrace();
             }
 
+            PrintWriter clientWriter = null;
+
+            try {
+                clientWriter = new PrintWriter(clientConnection.getOutputStream());
+            }
+            catch(IOException error) {
+                error.printStackTrace();
+            }
+
+            this.sendList.add(clientWriter);
+
             System.out.println("Building Client Thread.");
             ClientHandler handler = new ClientHandler(this, clientReader);
             Thread newClient = new Thread(handler);
@@ -61,7 +74,7 @@ public class ChatServer {
      */
     public void sendToEveryone(String message) {
         for (PrintWriter client : this.sendList) {
-            client.print(message);
+            client.println(message);
             client.flush();
         }
     }
