@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class ChatServer {
     private ServerSocket serverSocket;
     private ArrayList<PrintWriter> sendList;
+    private boolean serverRunning;
 
     public ChatServer() {
         // Create a new Server Socket on port 8080 to listen for clients
@@ -14,6 +15,24 @@ public class ChatServer {
         }
         catch (IOException error) {
             error.printStackTrace();
+        }
+    }
+
+    /**
+     * Method responsible to start the server
+     */
+    public void start() {
+
+    }
+
+    /**
+     * Method responsible to broadcast message to every connected client
+     * @param message is the string that will be sent to all the clients
+     */
+    public void sendToEveryone(String message) {
+        for (PrintWriter client : this.sendList) {
+            client.print(message);
+            client.flush();
         }
     }
 }
